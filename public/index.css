@@ -1,0 +1,84 @@
+html,
+body {
+  font-family: 'sans-serif'; }
+
+h1 {
+  font-size: 6rem; }
+
+h2 {
+  font-size: 3.75rem; }
+
+h3 {
+  font-size: 3rem; }
+
+h4 {
+  font-size: 2.125rem; }
+
+h5 {
+  font-size: 1.5rem; }
+
+h6 {
+  font-size: 1.25rem; }
+
+.subtitle1 {
+  font-size: 1rem; }
+
+.subtitle2 {
+  font-size: 0.875rem; }
+
+.body1 {
+  font-size: 1rem; }
+
+.body2 {
+  font-size: 0.875rem; }
+
+.button-font {
+  font-size: 0.875rem; }
+
+.caption {
+  font-size: 0.75rem; }
+
+.italic {
+  font-style: italic; }
+
+:root {
+  --theme-primary: #616161;
+  --theme-primary-font: #fff; }
+
+* {
+  margin: 0;
+  box-sizing: border-box; }
+
+body {
+  font-size: 16px; }
+
+.indicator--on {
+  fill: green; }
+
+.indicator--warn {
+  fill: yellow; }
+
+.indicator--off {
+  fill: red; }
+
+header {
+  height: 3.5rem;
+  background-color: var(--theme-primary);
+  display: grid;
+  grid-template-columns: 4.5rem  1fr 1fr 4rem; }
+  header__menu_btn {
+    grid-column: 1; }
+  header__title {
+    grid-column: 2; }
+  header__socket-status {
+    grid-column: 4; }
+
+.menu-btn {
+  border: none;
+  background-color: transparent;
+  color: var(--theme-primary-font); }
+
+.title {
+  color: var(--theme-primary-font);
+  display: flex;
+  align-items: center; }

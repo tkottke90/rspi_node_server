@@ -1,0 +1,63 @@
+@import "_typography";
+@import "_variables.scss";
+
+:root {
+  --theme-primary: #616161;
+  --theme-primary-font: #fff;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 16px;
+}
+
+.indicator {
+
+  &--on {
+    fill: green;
+  }  
+
+  &--warn {
+    fill: yellow;
+  }
+
+  &--off {
+    fill: red;
+  }
+}
+
+
+header {
+  height: 3.5rem;
+  
+  background-color: var(--theme-primary);
+
+  display: grid;
+  grid-template-columns: 4.5rem  1fr 1fr 4rem;
+
+  &__menu_btn { grid-column: 1; }
+
+  &__title { grid-column: 2; }
+
+  &__socket-status { grid-column: 4; }
+}
+
+.menu-btn {
+  border: none;
+  background-color: transparent;
+
+  color: var(--theme-primary-font);
+}
+
+.title {
+  color: var(--theme-primary-font);
+
+  display: flex;
+  align-items: center;
+}
+
+section {}

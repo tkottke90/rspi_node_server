@@ -1,4 +1,4 @@
-const http = require('https');
+const axios = require('axios');
 
 /* eslint-disable no-unused-vars */
 class Service {
@@ -8,12 +8,15 @@ class Service {
 
   async setup(app) {
     this.app = app;
+    this.config = app.get('phillips');
 
-    this.serviceURL = `https://${this.app.get('bridge_IP')}/api/${this.app.get('bridge_username')}`;
+    this.serviceURL = `http://${this.config.bridge_IP}/api/${this.config.bridge_username}`;
   }
 
   async find (params) {
-    return await http.request(`${this.serviceURL}/lights`);
+    const result = await axios.get(`${this.serviceURL}/lights`);
+
+    return result.data;
   }
 
   async get (id, params) {

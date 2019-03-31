@@ -5,5 +5,9 @@
   "paginate": {
     "default": 10,
     "max": 50
+  },
+  "phillips": {
+    "bridge_IP": "192.168.1.31",
+    "bridge_username": "vIwK83Y-2wxYMK7EYHb8inYj-LQOwQwJmDQ3xHS"
   }
 }

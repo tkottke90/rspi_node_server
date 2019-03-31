@@ -1,4 +1,4 @@
-const http = require('https');
+const axios = require('axios');
 
 /* eslint-disable no-unused-vars */
 class Service {
@@ -8,26 +8,23 @@ class Service {
 
   async setup(app) {
     this.app = app;
+    this.config = app.get('phillips');
 
-    this.serviceURL = `https://${this.app.get('bridge_IP')}/api/${this.app.get('bridge_username')}`;
+    this.serviceURL = `http://${this.config.bridge_IP}/api/${this.config.bridge_username}`;
   }
 
   async find (params) {
-    return await http.request(`${this.serviceURL}/lights`);
+    const result = await axios.get(`${this.serviceURL}/lights`);
+
+    return result.data;
   }
 
   async get (id, params) {
-    return {
-      id, text: `A new message with ID: ${id}!`
-    };
+    const result = await axios.get(`${this.serviceURL}/lights/${id}/Add`);
   }
 
   async create (data, params) {
-    if (Array.isArray(data)) {
-      return Promise.all(data.map(current => this.create(current, params)));
-    }
-
-    return data;
+    return null;
   }
 
   async update (id, data, params) {
@@ -39,7 +36,7 @@ class Service {
   }
 
   async remove (id, params) {
-    return { id };
+    return null;
   }
 }
 

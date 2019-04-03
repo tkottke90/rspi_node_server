@@ -20,7 +20,8 @@ class Service {
   }
 
   async get (id, params) {
-    const result = await axios.get(`${this.serviceURL}/lights/${id}/Add`);
+    const result = await axios.get(`${this.serviceURL}/lights/${id}`);
+    return result.data;
   }
 
   async create (data, params) {
@@ -32,7 +33,7 @@ class Service {
   }
 
   async patch (id, data, params) {
-    return data;
+    
   }
 
   async remove (id, params) {

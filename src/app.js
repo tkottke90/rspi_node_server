@@ -17,6 +17,7 @@ const channels = require('./channels');
 
 const chalk = require('chalk');
 const raspberryPi = require('./rspi.js');
+const redis = require('./redis');
 
 const app = express(feathers());
 
@@ -42,16 +43,16 @@ app.configure(express.rest());
 const _clients = [];
 app.configure(socketio(function(io) {
   io.on('connection', function(socket) {
-    if (!_clients[socket.id]) {  console.log(app.get('timestamp')(), `new socket ${socket.id}`); }
+    if (!_clients[socket.id]) {  logger.log('info', `${app.get('timestamp')()} - new socket ${socket.id}`); }
     _clients[socket.id] = socket;
 
     socket.emit('news', { text: 'A client connected!' });
     socket.on('my other event', function (data) {
-      console.log( app.get('timestamp')(), data);
+      logger.log('info', `${app.get('timestamp')()} - ${data}`);
     });
 
     socket.on('disconnect', (data) => {
-      console.log(socket.id + ' disconnected');
+      logger.log('info', socket.id + ' disconnected');
       delete _clients[socket.id];
     });
   });
@@ -64,8 +65,6 @@ app.configure(socketio(function(io) {
   });
 }));
 
-app.configure(raspberryPi);
-
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);
 // Set up our services (see `services/index.js`)
@@ -77,10 +76,13 @@ app.configure(channels);
 app.use(express.notFound());
 app.use(express.errorHandler({ logger }));
 
+app.configure(redis);
+app.configure(raspberryPi);
+
 app.hooks(appHooks);
 
 process.on('beforeExit', () => {
-  console.log(chalk.blue(new Date().toISOString()), 'Shutting Down....');
+  logger.log('info', `${chalk.blue(new Date().toISOString())} - Shutting Down....`);
 });
 
 

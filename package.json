@@ -1,7 +1,7 @@
 {
   "name": "rspi-server-1-0",
   "description": "RaspberryPi Server using Feathers/Express",
-  "version": "0.0.0",
+  "version": "1.0.62",
   "homepage": "",
   "main": "src",
   "keywords": [
@@ -48,6 +48,7 @@
     "cors": "^2.8.5",
     "d3": "^5.9.1",
     "helmet": "^3.15.0",
+    "ioredis": "^4.9.0",
     "lit-html": "^1.0.0",
     "node-dht-sensor": "^0.0.34",
     "serve-favicon": "^2.5.0",

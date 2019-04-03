@@ -27,7 +27,7 @@ CMD ["npm", "start"]
 EXPOSE 3030
 
 # docker build -t tkottke90/feathers-rpi:latest -t tkottke90/feathers-rpi:1.0.X .
-# docker run -d -p 80:3030 --privileged --name tkottke90/feathers-rpi
+# docker run -d -p 80:3030 --privileged --restart=on-failure:5 --env REDIS_URL=172.17.0.2 --name tfrpi tkottke90/feathers-rpi
 
 # View Docker Containers
 # docker ps -a

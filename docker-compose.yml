@@ -1,0 +1,15 @@
+
+services:
+  redis:
+    image: redis:latest
+    container_name: my-redis
+    expose:
+      - 6789
+  web:
+    build: .
+    ports:
+      - "80:3030"
+    links:
+      - redis
+    environment:
+    - REDIS_URL=redis://my-redis

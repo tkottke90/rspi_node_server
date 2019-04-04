@@ -15,13 +15,18 @@ describe('\'unavailableEndpoint\' hook', () => {
     });
 
     app.service('dummy').hooks({
-      
+      before: { 
+        get: [ unavailableEndpoint() ]
+      }
     });
   });
 
-  it('runs the hook', async () => {
-    const result = await app.service('dummy').get('test');
-    
-    assert.deepEqual(result, { id: 'test' });
+  it('should return a rejected response with a 503 error code', async () => {
+    try {
+      await app.service('dummy').get('test');
+    } catch(err) {
+      assert(err.code === 503, '503 - unavailable code returned');
+      assert(err.message == 'Endpoint Unavailable', 'endpoint unavailable message returned');
+    }
   });
 });

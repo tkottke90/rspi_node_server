@@ -1,4 +1,3 @@
-const chalk = require('chalk');
 
 module.exports = function(app) {
   if(typeof app.channel !== 'function') {

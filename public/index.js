@@ -23,6 +23,10 @@ socket.on('disconnect', (reason) => {
   // else the socket will automatically try to reconnect
 });
 
+socket.on('temp update', (data) => {
+  console.log(data);
+});
+
 client.configure(feathers.socketio(socket));
 // Use localStorage to store our login token
 client.configure(feathers.authentication({

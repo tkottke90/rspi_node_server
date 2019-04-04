@@ -1,7 +1,12 @@
 const errors = require('@feathersjs/errors');
+const logger = require('../../logger');
 
 /* eslint-disable no-unused-vars */
 class Service {
+  toMilliseconds(seconds) {
+    return seconds * 1000;
+  }
+
   constructor (options) {
     this.options = options || {};
   }
@@ -11,14 +16,24 @@ class Service {
 
     this.current = [];
 
-    this.update = setInterval(() => {
+    this.update = setInterval(async () => {
       const sensorData = this.app.get('temp').readAll();
 
+      sensorData.timestamp = this.app.get('timestamp')();
       this.current = sensorData.data;
 
-      app.io.emit('temp update', sensorData);
+      const {temperature, humidity} = sensorData.data;
 
-    }, 1000);
+      for (let result of sensorData.data) {
+        app.get('redis').lpush(`sensor:${result.id}:temperature`, JSON.stringify({ timestamp: sensorData.timestamp, value: temperature }));
+        app.get('redis').lpush(`sensor:${result.id}:humidity`, JSON.stringify({ timestamp: sensorData.timestamp, value: humidity }));
+      }
+
+      app.io.emit('temp update', sensorData);
+      logger.info(`${this.app.get('timestamp')()} - Refresh temperatures`);
+      console.log(sensorData);
+
+    }, this.toMilliseconds(30));
   }
 
   async onDestroy() {

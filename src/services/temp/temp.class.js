@@ -23,18 +23,17 @@ class Service {
       this.current = sensorData.data;
 
       for (let result of sensorData.data) {
-        await app.get('redis').lpush(`sensor:${result.id}:temperature`, JSON.stringify({ timestamp: sensorData.timestamp, value: result.temperature }));
-        await app.get('redis').lpush(`sensor:${result.id}:humidity`, JSON.stringify({ timestamp: sensorData.timestamp, value: result.humidity }));
+
+        const tempRecord = { timestamp: sensorData.timestamp, value: result.temperature };
+        const humidRecord = { timestamp: sensorData.timestamp, value: result.humidity };
+
+        await app.get('redis').lpush(`sensor:${result.id}:temperature`, JSON.stringify(tempRecord));
+        await app.get('redis').lpush(`sensor:${result.id}:humidity`, JSON.stringify(humidRecord));
       }
 
       app.io.emit('temp update', sensorData);
       logger.info(`${this.app.get('timestamp')()} - Refresh temperatures`);
-
     }, this.toMilliseconds(30));
-  }
-
-  async onDestroy() {
-    clearInterval(this.update);
   }
 
   async find (params) {

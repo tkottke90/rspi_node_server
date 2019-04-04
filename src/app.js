@@ -52,6 +52,7 @@ app.configure(socketio(function(io) {
       logger.log('info', `${app.get('timestamp')()} - ${data}`);
     });
 
+    // eslint-disable-next-line no-unused-vars
     socket.on('disconnect', (data) => {
       logger.log('info', socket.id + ' disconnected');
       delete _clients[socket.id];

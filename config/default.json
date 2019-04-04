@@ -9,5 +9,40 @@
   "phillips": {
     "bridge_IP": "192.168.1.31",
     "bridge_username": "SvIwK83Y-2wxYMK7EYHb8inYj-LQOwQwJmDQ3xHS"
+  },
+  "authentication": {
+    "secret": "ffe335844208dc7afcb6554db5f2f24910cfa6ea99c2028a8d138cd62b0307f29ff3798db377311e3a2375169ae44055413cd1a6cad7c02d605fad8065341d878bfeba1b42b81c9e3a99527cf203082d1fc24fb72f0e801861e209dfe5c72403dc5ba5a3e5892c0e326ddefdae8c5942e68431c535a001f36e86ddf0ff615e9b706a96731c1fd291f1742cd271c067e8ea09f946534d097f69f066a5bde2b8569f12f4d46ce5f8af6b95d1c0315e4df57aba3151958ff7ad11604d634575f52f59626db415e8f6b9db029b3d0adfe8447ad40ebcd11c22013674e5538279ce7842916b098ce0f07dfab0470e13dc2773ced3097d542f59bf5bc805370394a507",
+    "strategies": [
+      "jwt",
+      "local"
+    ],
+    "path": "/authentication",
+    "service": "users",
+    "jwt": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "subject": "anonymous",
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "1d"
+    },
+    "local": {
+      "entity": "user",
+      "usernameField": "email",
+      "passwordField": "password"
+    },
+    "github": {
+      "clientID": "your github client id",
+      "clientSecret": "your github client secret",
+      "successRedirect": "/"
+    },
+    "cookie": {
+      "enabled": true,
+      "name": "feathers-jwt",
+      "httpOnly": false,
+      "secure": false
+    }
   }
 }

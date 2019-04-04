@@ -22,16 +22,13 @@ class Service {
       sensorData.timestamp = this.app.get('timestamp')();
       this.current = sensorData.data;
 
-      const {temperature, humidity} = sensorData.data;
-
       for (let result of sensorData.data) {
-        app.get('redis').lpush(`sensor:${result.id}:temperature`, JSON.stringify({ timestamp: sensorData.timestamp, value: temperature }));
-        app.get('redis').lpush(`sensor:${result.id}:humidity`, JSON.stringify({ timestamp: sensorData.timestamp, value: humidity }));
+        await app.get('redis').lpush(`sensor:${result.id}:temperature`, JSON.stringify({ timestamp: sensorData.timestamp, value: result.temperature }));
+        await app.get('redis').lpush(`sensor:${result.id}:humidity`, JSON.stringify({ timestamp: sensorData.timestamp, value: result.humidity }));
       }
 
       app.io.emit('temp update', sensorData);
       logger.info(`${this.app.get('timestamp')()} - Refresh temperatures`);
-      console.log(sensorData);
 
     }, this.toMilliseconds(30));
   }

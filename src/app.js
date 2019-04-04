@@ -25,7 +25,7 @@ const app = express(feathers());
 app.configure(configuration());
 
 app.set('timestamp', () => {
-  return `${chalk.blue(new Date().toISOString())} - `;
+  return `${chalk.blue(new Date().toISOString())}`;
 });
 // Enable security, CORS, compression, favicon and body parsing
 app.use(helmet());
@@ -47,6 +47,7 @@ app.configure(socketio(function(io) {
     _clients[socket.id] = socket;
 
     socket.emit('news', { text: 'A client connected!' });
+    
     socket.on('my other event', function (data) {
       logger.log('info', `${app.get('timestamp')()} - ${data}`);
     });

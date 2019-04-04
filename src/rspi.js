@@ -7,6 +7,7 @@ module.exports = function (app) {
     dht: dht,
     sensors: [
       {
+        id: 1,
         name: 'Office',
         pin: 4,
         type: 11
@@ -23,6 +24,7 @@ module.exports = function (app) {
 
         if (result.temperature) {
           returnData.data.push({
+            id: this.sensors[sensor].id,
             temperature: result.temperature,
             humidity: result.humidity
           });
@@ -34,9 +36,11 @@ module.exports = function (app) {
       return returnData;
     },
     read: function (id) {
-      const result = app.get('temp').dht.read(this.sensors[id].type, this.sensors[id].pin);
+      const sensorId = this.sensors.findIndex( sensor => sensor.id === id);
+      const result = app.get('temp').dht.read(this.sensors[sensorId].type, this.sensors[id].pin);
 
       return {
+        id: id,
         temperature: result.temperature,
         humidity: result.humidity
       };

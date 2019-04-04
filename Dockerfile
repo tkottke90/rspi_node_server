@@ -22,6 +22,8 @@ COPY . .
 
 RUN ls -lh
 
+RUN npm test
+
 CMD ["npm", "start"]
 
 EXPOSE 3030

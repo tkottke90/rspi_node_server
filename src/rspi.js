@@ -1,5 +1,4 @@
 const dht = require('node-dht-sensor');
-const chalk = require('chalk');
 
 module.exports = function (app) {
 

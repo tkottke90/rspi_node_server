@@ -1,13 +1,16 @@
 /*global feathers, io */
 /*eslint-env browser*/
 
-import { HeaderComponent } from './components.js';
+import { HeaderComponent, CardComponent } from './components.js';
 
 customElements.define('app-header', HeaderComponent);
+customElements.define('app-card', CardComponent);
 
 // const socket = io();
 const client = feathers();
-const socket = io.connect();
+const socket = io.connect('192.168.1.26');
+
+let tempData = {};
 
 socket.on('connect', _io => {
   console.log('connected', socket.id);
@@ -24,7 +27,11 @@ socket.on('disconnect', (reason) => {
 });
 
 socket.on('temp update', (data) => {
-  console.log(data);
+  // console.log(data);
+  const msTimestamp = `${new Date(data.timestamp).valueOf()}`;
+  tempData[msTimestamp] = data;
+
+  console.table(tempData);
 });
 
 client.configure(feathers.socketio(socket));
@@ -32,33 +39,3 @@ client.configure(feathers.socketio(socket));
 client.configure(feathers.authentication({
   storage: window.localStorage
 }));
-
-let tempData = {};
-
-
-// setInterval(() => {
-//   socket.on('get', 'temp', 0, (err, res) => {
-//     if (err) {
-//       console.error(err);
-//       return;
-//     }
-
-//     tempData = res;
-//     console.log(tempData);
-
-
-//   });
-// }, 1000);
-
-class CardComponent extends HTMLElement {
-  constructor() {
-    super();
-    
-    let template = document.getElementById('my-card');
-    let templateContent = template.content;
-    
-    this.attachShadow({mode: 'open'}).appendChild(templateContent.cloneNode(true));
-  }
-}
-
-customElements.define('my-card', CardComponent);

@@ -43,7 +43,8 @@ h6 {
 
 :root {
   --theme-primary: #616161;
-  --theme-primary-font: #fff; }
+  --theme-primary-font: #fff;
+  font-size: 16px; }
 
 * {
   margin: 0;
@@ -51,6 +52,9 @@ h6 {
 
 body {
   font-size: 16px; }
+
+*[color="primary"] {
+  color: var(--theme-primary); }
 
 .indicator--on {
   fill: green; }
@@ -82,3 +86,6 @@ header {
   color: var(--theme-primary-font);
   display: flex;
   align-items: center; }
+
+section.card-container {
+  margin: 1rem; }

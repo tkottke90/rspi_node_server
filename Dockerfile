@@ -22,6 +22,8 @@ COPY . .
 
 RUN ls -lh
 
+RUN npm run lint
+
 RUN npm test
 
 CMD ["npm", "start"]
